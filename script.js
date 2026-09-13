@@ -12,6 +12,49 @@ const storyPrev = document.getElementById('storyPrev');
 const storyNext = document.getElementById('storyNext');
 let storyIndex = 0;
 
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function setupMotion() {
+  if (reducedMotion) return;
+
+  if (window.Lenis) {
+    const lenis = new Lenis({ autoRaf: true, anchors: true, smoothWheel: true });
+    window.myInternWayLenis = lenis;
+  }
+
+  if (window.gsap && window.ScrollTrigger) {
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.from('.hero-copy > *', { opacity: 0, y: 24, duration: .8, stagger: .08, ease: 'power3.out', delay: .15 });
+    gsap.from('.hero-photo', { opacity: 0, scale: .94, rotate: 6, duration: 1.1, ease: 'power3.out', delay: .3 });
+    gsap.utils.toArray('.section-heading, .about-grid, .destination-grid, .process-section, .access-section').forEach((section) => {
+      gsap.from(section, {
+        opacity: 0,
+        y: 42,
+        duration: .85,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: section, start: 'top 82%', once: true },
+      });
+    });
+    gsap.to('.hero:after', { y: 80, rotation: 18, ease: 'none', scrollTrigger: { trigger: '.hero', scrub: true } });
+  }
+
+  if (window.VanillaTilt) {
+    VanillaTilt.init(document.querySelectorAll('.destination-card, .floating-note'), {
+      max: 5,
+      speed: 500,
+      perspective: 900,
+      glare: true,
+      'max-glare': .12,
+    });
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', setupMotion, { once: true });
+} else {
+  setupMotion();
+}
+
 function closeMenu() {
   navMenu.classList.remove('active');
   hamburger.classList.remove('active');
