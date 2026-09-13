@@ -32,6 +32,7 @@ function setupMotion() {
         y: 42,
         duration: .85,
         ease: 'power3.out',
+        immediateRender: false,
         scrollTrigger: { trigger: section, start: 'top 82%', once: true },
       });
     });
