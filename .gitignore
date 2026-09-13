@@ -1,6 +1,5 @@
 # Local editor and operating-system files
-.vscode/*
-!.vscode/settings.json
+.vscode/
 .DS_Store
 Thumbs.db
 
