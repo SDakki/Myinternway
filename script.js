@@ -24,8 +24,8 @@ function setupMotion() {
 
   if (window.gsap && window.ScrollTrigger) {
     gsap.registerPlugin(ScrollTrigger);
-    gsap.from('.hero-copy > *', { opacity: 0, y: 24, duration: .8, stagger: .08, ease: 'power3.out', delay: .15 });
-    gsap.from('.hero-photo', { opacity: 0, scale: .94, rotate: 6, duration: 1.1, ease: 'power3.out', delay: .3 });
+    gsap.from('.hero-header > *, .hero-footer > *', { opacity: 0, y: 24, duration: .8, stagger: .08, ease: 'power3.out', delay: .15 });
+    gsap.from('.hero-collage', { opacity: 0, scale: .94, rotate: 6, duration: 1.1, ease: 'power3.out', delay: .3 });
     gsap.utils.toArray('.section-heading, .about-grid, .destination-grid, .process-section, .access-section').forEach((section) => {
       gsap.from(section, {
         opacity: 0,

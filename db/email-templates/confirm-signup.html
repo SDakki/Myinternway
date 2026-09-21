@@ -1,0 +1,46 @@
+<!--
+  Supabase template: Authentication > Email Templates > "Confirm signup".
+  Paste this full HTML into that template's editor and save.
+  Keep the {{ .ConfirmationURL }} variable — Supabase replaces it automatically.
+-->
+<div style="background-color:#f3e6d0;padding:40px 20px;font-family:'DM Sans',Helvetica,Arial,sans-serif;color:#173b3d;">
+  <table role="presentation" width="100%" style="max-width:480px;margin:0 auto;background:#ffffff;border-radius:18px;overflow:hidden;box-shadow:0 22px 60px rgba(23,59,61,.14);">
+    <tr>
+      <td style="background-color:#185c55;padding:28px 32px;text-align:center;">
+        <span style="font-family:Georgia,'Times New Roman',serif;font-size:22px;font-weight:700;color:#fffaf4;letter-spacing:-0.02em;">MyInternWay</span>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:36px 32px 12px;">
+        <p style="margin:0 0 6px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#185c55;">Confirm your account</p>
+        <h1 style="margin:0 0 18px;font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.15;color:#173b3d;">Your next chapter <em style="color:#f47f68;font-style:italic;">starts here.</em></h1>
+        <p style="margin:0 0 24px;font-size:15px;line-height:1.6;color:#607778;">
+          Thanks for joining MyInternWay! Confirm your email to activate your account and start discovering your next professional experience in Spain.
+        </p>
+        <table role="presentation" style="margin:0 0 28px;">
+          <tr>
+            <td style="border-radius:12px;background-color:#f47f68;">
+              <a href="{{ .ConfirmationURL }}" style="display:inline-block;padding:14px 28px;font-size:15px;font-weight:700;color:#fffaf4;text-decoration:none;border-radius:12px;">
+                Confirm my account ↗
+              </a>
+            </td>
+          </tr>
+        </table>
+        <p style="margin:0 0 8px;font-size:13px;line-height:1.5;color:#607778;">
+          If the button doesn't work, copy and paste this link into your browser:
+        </p>
+        <p style="margin:0 0 28px;font-size:12px;line-height:1.5;word-break:break-all;color:#7bc7d5;">
+          {{ .ConfirmationURL }}
+        </p>
+        <p style="margin:0;font-size:12px;line-height:1.5;color:#607778;">
+          If you didn't create this account, you can safely ignore this email.
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding:20px 32px 28px;border-top:1px solid #dbe9df;">
+        <p style="margin:0;font-size:11px;color:#607778;">© 2026 MyInternWay · Your talent has no borders.</p>
+      </td>
+    </tr>
+  </table>
+</div>
