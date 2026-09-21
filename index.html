@@ -41,7 +41,7 @@
           <button class="lang-btn is-active" data-lang-btn="en" type="button" aria-pressed="true">EN</button>
           <button class="lang-btn" data-lang-btn="es" type="button" aria-pressed="false">ES</button>
         </div>
-        <a class="nav-login" href="#roles" data-i18n="nav_member">Sign up</a>
+        <button class="nav-login" id="navLoginBtn" type="button" data-i18n="nav_login">Log in</button>
         <a class="nav-cta" href="#roles" data-i18n="nav_cta">Get started <span>↗</span></a>
       </nav>
       <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false">
@@ -314,8 +314,73 @@
           </div>
           <button class="button button-primary" type="submit" id="studentModalSubmit" data-i18n="signup_btn">Create my account <span>↗</span></button>
           <p class="signup-message" id="studentModalMsg" role="status" aria-live="polite"></p>
+          <div class="modal-switch-text">
+            <span data-i18n="modal_signup_has_account">Already have an account?</span>
+            <button class="text-link-btn" id="switchToLoginBtn" type="button" data-i18n="modal_signup_login_link">Log in here</button>
+          </div>
           <small data-i18n="signup_note">Upon signing up we will send you a confirmation email. Only confirmed profiles will be activated.</small>
         </form>
+      </div>
+    </div>
+
+    <!-- Modal Iniciar Sesión (Login) -->
+    <div class="modal-backdrop" id="loginModal" role="dialog" aria-modal="true" aria-labelledby="modalLoginTitle" hidden>
+      <div class="modal-card">
+        <button class="modal-close" type="button" data-close-modal aria-label="Close">✕</button>
+        <div class="modal-header">
+          <span class="role-badge" data-i18n="role_student_badge">For Candidates</span>
+          <h2 id="modalLoginTitle" data-i18n="modal_login_title">Welcome back</h2>
+          <p data-i18n="modal_login_intro">Log in to access your MyInternWay candidate account.</p>
+        </div>
+        <form class="modal-form" id="loginModalForm" novalidate>
+          <div class="signup-field signup-field-full">
+            <label for="loginEmail" data-i18n="signup_label_email">Email Address</label>
+            <input id="loginEmail" name="email" type="email" autocomplete="email" placeholder="john@example.com" required />
+          </div>
+          <div class="signup-field signup-field-full">
+            <label for="loginPassword" data-i18n="signup_label_pass">Password</label>
+            <input id="loginPassword" name="password" type="password" autocomplete="current-password" placeholder="Your password" required />
+          </div>
+          <button class="button button-primary" type="submit" id="loginModalSubmit" data-i18n="modal_login_btn">Log in <span>↗</span></button>
+          <p class="signup-message" id="loginModalMsg" role="status" aria-live="polite"></p>
+          <div class="modal-switch-text">
+            <span data-i18n="modal_login_no_account">Don't have an account?</span>
+            <button class="text-link-btn" id="switchToSignupBtn" type="button" data-i18n="modal_login_signup_link">Sign up here</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal Panel de Usuario (Dashboard de Estudiante) -->
+    <div class="modal-backdrop" id="dashboardModal" role="dialog" aria-modal="true" aria-labelledby="modalDashTitle" hidden>
+      <div class="modal-card">
+        <button class="modal-close" type="button" data-close-modal aria-label="Close">✕</button>
+        <div class="modal-header">
+          <span class="role-badge" data-i18n="role_student_badge">Candidate Profile</span>
+          <h2 id="modalDashTitle" data-i18n="modal_dashboard_title">Candidate Dashboard</h2>
+          <p data-i18n="modal_dashboard_intro">Here is the status of your internship profile.</p>
+        </div>
+        <div class="dashboard-details">
+          <div class="dash-row">
+            <span class="dash-label" data-i18n="dash_label_name">Name:</span>
+            <strong id="dashUserName"></strong>
+          </div>
+          <div class="dash-row">
+            <span class="dash-label" data-i18n="dash_label_email">Email:</span>
+            <strong id="dashUserEmail"></strong>
+          </div>
+          <div class="dash-row">
+            <span class="dash-label" data-i18n="dash_label_country">Country:</span>
+            <strong id="dashUserCountry"></strong>
+          </div>
+          <div class="dash-row">
+            <span class="dash-label" data-i18n="dash_label_status">Application Status:</span>
+            <span class="status-pill" id="dashUserStatus"></span>
+          </div>
+        </div>
+        <div class="dashboard-actions">
+          <button class="button button-secondary" id="logoutBtn" type="button" data-i18n="dash_btn_logout">Log out</button>
+        </div>
       </div>
     </div>
 
@@ -364,9 +429,9 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-    <script src="supabase-config.js"></script>
-    <script src="i18n.js?v=20260921-init"></script>
-    <script src="registro.js?v=20260921-signup"></script>
-    <script src="script.js?v=20260921-herostack"></script>
+    <script src="supabase-config.js?v=20260921-v103"></script>
+    <script src="i18n.js?v=20260921-v103"></script>
+    <script src="registro.js?v=20260921-v103"></script>
+    <script src="script.js?v=20260921-v103"></script>
   </body>
 </html>

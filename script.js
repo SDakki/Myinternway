@@ -137,11 +137,18 @@ document.addEventListener('keydown', (event) => {
   if (event.key === 'ArrowRight') moveStory(1);
 });
 
-// Modales de Estudiante y Empresa
+// Modales de Estudiante, Empresa, Login y Dashboard
 const studentModal = document.getElementById('studentModal');
 const companyModal = document.getElementById('companyModal');
+const loginModal = document.getElementById('loginModal');
+const dashboardModal = document.getElementById('dashboardModal');
+
 const openStudentBtn = document.getElementById('openStudentModal');
 const openCompanyBtn = document.getElementById('openCompanyModal');
+const navLoginBtn = document.getElementById('navLoginBtn');
+
+const switchToLoginBtn = document.getElementById('switchToLoginBtn');
+const switchToSignupBtn = document.getElementById('switchToSignupBtn');
 
 function openModal(modal) {
   if (!modal) return;
@@ -157,8 +164,45 @@ function closeModal(modal) {
   document.body.style.overflow = '';
 }
 
+window.openModal = openModal;
+window.closeModal = closeModal;
+
 openStudentBtn?.addEventListener('click', () => openModal(studentModal));
 openCompanyBtn?.addEventListener('click', () => openModal(companyModal));
+
+navLoginBtn?.addEventListener('click', async () => {
+  let session = window._currentSession || null;
+  if (!session && window.supabaseClient) {
+    try {
+      const res = await window.supabaseClient.auth.getSession();
+      session = res.data?.session;
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  const isUserActive = navLoginBtn.classList.contains('nav-user-active');
+
+  if ((session && session.user) || isUserActive) {
+    if (typeof window.checkUserSession === 'function') {
+      await window.checkUserSession(session);
+    }
+    openModal(dashboardModal);
+  } else {
+    // Si no hay sesión iniciada, abrir login
+    openModal(loginModal);
+  }
+});
+
+switchToLoginBtn?.addEventListener('click', () => {
+  closeModal(studentModal);
+  openModal(loginModal);
+});
+
+switchToSignupBtn?.addEventListener('click', () => {
+  closeModal(loginModal);
+  openModal(studentModal);
+});
 
 document.querySelectorAll('[data-close-modal]').forEach((btn) => {
   btn.addEventListener('click', (e) => {
@@ -167,16 +211,12 @@ document.querySelectorAll('[data-close-modal]').forEach((btn) => {
   });
 });
 
-document.querySelectorAll('.modal-backdrop').forEach((backdrop) => {
-  backdrop.addEventListener('click', (e) => {
-    if (e.target === backdrop) closeModal(backdrop);
-  });
-});
-
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     closeModal(studentModal);
     closeModal(companyModal);
+    closeModal(loginModal);
+    closeModal(dashboardModal);
   }
 });
 
