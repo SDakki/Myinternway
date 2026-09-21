@@ -83,3 +83,47 @@
 .hero-proof{justify-content:center}
 @media(min-width:901px){.hero{grid-template-columns:none}}
 @media(max-width:900px){.hero{grid-template-columns:none}}
+
+/* Roles Section (Student / Company) */
+.roles-section{max-width:1200px;margin:0 auto;padding-top:76px;padding-bottom:76px;padding-left:clamp(1.25rem,5vw,3rem);padding-right:clamp(1.25rem,5vw,3rem)}
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.role-card{position:relative;display:block;width:100%;min-height:360px;border:none;border-radius:22px;overflow:hidden;padding:0;text-align:left;cursor:pointer;background:var(--ink);box-shadow:var(--shadow);transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s ease}
+.role-card img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+.role-card:hover{transform:translateY(-6px);box-shadow:0 30px 60px rgba(23,59,61,.22)}
+.role-card:hover img{transform:scale(1.06)}
+.role-overlay{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(1.8rem,4vw,2.8rem);background:linear-gradient(180deg,rgba(23,59,61,.1) 0%,rgba(23,59,61,.82) 55%,rgba(23,59,61,.96) 100%);color:#fff}
+.role-badge{display:inline-block;align-self:flex-start;background:rgba(255,255,255,.18);backdrop-filter:blur(8px);color:var(--yellow);padding:.35rem .75rem;border-radius:999px;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.8rem}
+.role-card h3{font-family:'Fraunces',serif;font-size:clamp(1.8rem,3vw,2.4rem);line-height:1.1;color:#fff;margin-bottom:.6rem;letter-spacing:-.03em}
+.role-card p{color:rgba(255,250,244,.85);font-size:.9rem;line-height:1.5;margin-bottom:1.4rem;max-width:440px}
+.role-btn-label{display:inline-flex;align-items:center;gap:.6rem;background:var(--coral);color:#fff;padding:.75rem 1.4rem;border-radius:999px;font-size:.78rem;font-weight:700;letter-spacing:.03em;align-self:flex-start;transition:var(--ease)}
+.role-card-company .role-btn-label{background:var(--mint);color:var(--green)}
+.role-card:hover .role-btn-label{background:#fff;color:var(--ink);transform:translateX(4px)}
+
+@media(max-width:768px){
+  .roles-section{padding-top:54px;padding-bottom:54px}
+  .role-grid{grid-template-columns:1fr;gap:1.2rem}
+  .role-card{min-height:300px}
+}
+
+/* Modales */
+.modal-backdrop{position:fixed;inset:0;background:rgba(23,59,61,.65);backdrop-filter:blur(6px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:1.25rem;overflow-y:auto}
+.modal-backdrop[hidden]{display:none!important}
+.modal-card{position:relative;background:var(--paper);width:100%;max-width:580px;border-radius:24px;padding:clamp(1.8rem,5vw,2.8rem);box-shadow:0 30px 70px rgba(0,0,0,.28);border:1px solid var(--line);max-height:90vh;overflow-y:auto;animation:modalIn .3s cubic-bezier(.2,.8,.2,1)}
+@keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+.modal-close{position:absolute;top:1.2rem;right:1.2rem;width:38px;height:38px;border-radius:50%;background:rgba(23,59,61,.06);border:none;display:grid;place-items:center;font-size:1.1rem;color:var(--ink);transition:var(--ease)}
+.modal-close:hover{background:var(--coral);color:#fff}
+.modal-header{margin-bottom:1.6rem}
+.modal-header h2{font-family:'Fraunces',serif;font-size:clamp(1.7rem,3vw,2.2rem);line-height:1.1;letter-spacing:-.03em;color:var(--ink);margin:.4rem 0}
+.modal-header p{color:var(--muted);font-size:.88rem;line-height:1.5}
+.modal-form{display:grid;grid-template-columns:1fr 1fr;gap:1rem 1.2rem}
+.signup-field-full{grid-column:1 / -1}
+.signup-field textarea{border:1px solid var(--line);border-radius:10px;padding:.75rem .9rem;font:inherit;background:var(--white);color:var(--ink);resize:vertical;min-height:80px}
+.signup-field textarea:focus{outline:2px solid var(--blue);outline-offset:1px}
+.modal-form .button{grid-column:1 / -1;justify-self:start;margin-top:.5rem}
+.modal-form .signup-message{grid-column:1 / -1;font-size:.85rem;color:var(--green);min-height:1.2em}
+.modal-form .signup-message.is-error{color:var(--coral)}
+.modal-form>small{grid-column:1 / -1;color:var(--muted);font-size:.75rem}
+
+@media(max-width:640px){
+  .modal-form{grid-template-columns:1fr}
+}

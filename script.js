@@ -40,12 +40,12 @@ function setupMotion() {
   }
 
   if (window.VanillaTilt) {
-    VanillaTilt.init(document.querySelectorAll('.destination-card, .floating-note'), {
-      max: 5,
-      speed: 500,
+    VanillaTilt.init(document.querySelectorAll('.role-card, .floating-note'), {
+      max: 4,
+      speed: 400,
       perspective: 900,
       glare: true,
-      'max-glare': .12,
+      'max-glare': .08,
     });
   }
 }
@@ -139,4 +139,97 @@ storyViewport.addEventListener('pointercancel', () => storyViewport.classList.re
 document.addEventListener('keydown', (event) => {
   if (event.key === 'ArrowLeft') moveStory(-1);
   if (event.key === 'ArrowRight') moveStory(1);
+});
+
+// Modales de Estudiante y Empresa
+const studentModal = document.getElementById('studentModal');
+const companyModal = document.getElementById('companyModal');
+const openStudentBtn = document.getElementById('openStudentModal');
+const openCompanyBtn = document.getElementById('openCompanyModal');
+
+function openModal(modal) {
+  if (!modal) return;
+  modal.hidden = false;
+  document.body.style.overflow = 'hidden';
+  const firstInput = modal.querySelector('input, button, textarea');
+  if (firstInput) firstInput.focus();
+}
+
+function closeModal(modal) {
+  if (!modal) return;
+  modal.hidden = true;
+  document.body.style.overflow = '';
+}
+
+openStudentBtn?.addEventListener('click', () => openModal(studentModal));
+openCompanyBtn?.addEventListener('click', () => openModal(companyModal));
+
+document.querySelectorAll('[data-close-modal]').forEach((btn) => {
+  btn.addEventListener('click', (e) => {
+    const modal = e.target.closest('.modal-backdrop');
+    closeModal(modal);
+  });
+});
+
+document.querySelectorAll('.modal-backdrop').forEach((backdrop) => {
+  backdrop.addEventListener('click', (e) => {
+    if (e.target === backdrop) closeModal(backdrop);
+  });
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeModal(studentModal);
+    closeModal(companyModal);
+  }
+});
+
+// Gestión de formulario Empresa
+const companyModalForm = document.getElementById('companyModalForm');
+const companyModalMsg = document.getElementById('companyModalMsg');
+const companyModalSubmit = document.getElementById('companyModalSubmit');
+
+companyModalForm?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (companyModalSubmit) companyModalSubmit.disabled = true;
+  if (companyModalMsg) {
+    companyModalMsg.textContent = window.myinternwayI18n ? window.myinternwayI18n.t('msg_creating') : 'Enviando...';
+    companyModalMsg.classList.remove('is-error');
+  }
+
+  const formData = new FormData(companyModalForm);
+  const payload = {
+    contacto_nombre: formData.get('contacto_nombre')?.toString().trim(),
+    empresa_nombre: formData.get('empresa_nombre')?.toString().trim(),
+    email: formData.get('email')?.toString().trim(),
+    telefono: formData.get('telefono')?.toString().trim(),
+    ciudad_sector: formData.get('ciudad_sector')?.toString().trim(),
+    necesidades: formData.get('necesidades')?.toString().trim(),
+    created_at: new Date().toISOString()
+  };
+
+  try {
+    if (window.supabaseClient) {
+      const { error } = await window.supabaseClient.from('leads_empresas').insert([payload]);
+      if (error) {
+        console.warn('Supabase leads_empresas fallback:', error.message);
+      }
+    }
+    if (companyModalMsg) {
+      companyModalMsg.textContent = window.myinternwayI18n ? window.myinternwayI18n.t('msg_company_success') : '¡Gracias! Nos pondremos en contacto pronto.';
+      companyModalMsg.classList.remove('is-error');
+    }
+    companyModalForm.reset();
+    setTimeout(() => {
+      closeModal(companyModal);
+      if (companyModalMsg) companyModalMsg.textContent = '';
+    }, 2800);
+  } catch (err) {
+    if (companyModalMsg) {
+      companyModalMsg.textContent = err.message || (window.myinternwayI18n ? window.myinternwayI18n.t('msg_error_default') : 'Error al enviar');
+      companyModalMsg.classList.add('is-error');
+    }
+  } finally {
+    if (companyModalSubmit) companyModalSubmit.disabled = false;
+  }
 });

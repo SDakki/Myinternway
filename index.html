@@ -123,43 +123,6 @@
         </div>
       </section>
 
-      <section class="destinations-section reveal-on-scroll">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow" data-i18n="dest_eyebrow">Find your path</p>
-            <h2 data-i18n="dest_title">Multiple paths.<br /><em>Thousands of opportunities.</em></h2>
-          </div>
-          <p class="section-intro" data-i18n="dest_intro">Every experience moves at its own pace. You choose what fits your next step.</p>
-        </div>
-        <div class="destination-grid">
-          <article class="destination-card destination-madrid">
-            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=900&q=85" alt="Hotel front desk" />
-            <div>
-              <span data-i18n="dest_1_step">01 · The first impression</span>
-              <strong data-i18n="dest_1_title">Front Desk & Reception</strong>
-              <small data-i18n="dest_1_desc">Connect people, spaces, and memorable experiences</small>
-            </div>
-          </article>
-          <article class="destination-card destination-valencia">
-            <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=900&q=85" alt="Professional kitchen culinary" />
-            <div>
-              <span data-i18n="dest_2_step">02 · Culinary creativity</span>
-              <strong data-i18n="dest_2_title">Culinary & Kitchen</strong>
-              <small data-i18n="dest_2_desc">Turn every dish into an authentic experience</small>
-            </div>
-          </article>
-          <article class="destination-card destination-malaga">
-            <img src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=900&q=85" alt="Restaurant waiter service" />
-            <div>
-              <span data-i18n="dest_3_step">03 · Service that leaves a mark</span>
-              <strong data-i18n="dest_3_title">Food & Beverage / Service</strong>
-              <small data-i18n="dest_3_desc">Make every guest moment count</small>
-            </div>
-          </article>
-        </div>
-        <a class="destinations-link" href="#registro" data-i18n="dest_explore_cta">Explore all opportunities <span>↗</span></a>
-      </section>
-
       <section class="section stories-section reveal-on-scroll" id="historias">
         <div class="section-heading">
           <div>
@@ -233,6 +196,37 @@
               <button class="carousel-arrow" id="storyNext" type="button" aria-label="Next story">→</button>
             </div>
           </div>
+        </div>
+      </section>
+
+      <!-- Roles Selection Section (Student / Company) -->
+      <section class="roles-section reveal-on-scroll" id="roles">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" data-i18n="roles_eyebrow">Choose your path</p>
+            <h2 data-i18n="roles_title">Are you a student<br />or a <em>company?</em></h2>
+          </div>
+          <p class="section-intro" data-i18n="roles_intro">Pick your profile to unlock tailored opportunities or hire European talent with ease.</p>
+        </div>
+        <div class="role-grid">
+          <button class="role-card role-card-student" id="openStudentModal" type="button" aria-haspopup="dialog">
+            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1000&q=85" alt="Student looking for internship in Spain" />
+            <div class="role-overlay">
+              <span class="role-badge" data-i18n="role_student_badge">For Candidates</span>
+              <h3 data-i18n="role_student_title">I am a Student / Graduate</h3>
+              <p data-i18n="role_student_desc">Find internships, get housing support and start your experience in Spain.</p>
+              <span class="role-btn-label"><span data-i18n="role_student_cta">Sign up as Student</span> <span>↗</span></span>
+            </div>
+          </button>
+          <button class="role-card role-card-company" id="openCompanyModal" type="button" aria-haspopup="dialog">
+            <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1000&q=85" alt="Companies hiring interns in Spain" />
+            <div class="role-overlay">
+              <span class="role-badge" data-i18n="role_company_badge">For Host Venues</span>
+              <h3 data-i18n="role_company_title">I am a Company</h3>
+              <p data-i18n="role_company_desc">Receive motivated European talent for your hotel, restaurant or business.</p>
+              <span class="role-btn-label"><span data-i18n="role_company_cta">Register as Company</span> <span>↗</span></span>
+            </div>
+          </button>
         </div>
       </section>
 
@@ -324,6 +318,87 @@
         <span data-i18n="footer_copy">Made to take the leap</span>
       </div>
     </footer>
+
+    <!-- Modal Formulario Estudiante -->
+    <div class="modal-backdrop" id="studentModal" role="dialog" aria-modal="true" aria-labelledby="modalStudentTitle" hidden>
+      <div class="modal-card">
+        <button class="modal-close" type="button" data-close-modal aria-label="Close">✕</button>
+        <div class="modal-header">
+          <span class="role-badge" data-i18n="role_student_badge">For Candidates</span>
+          <h2 id="modalStudentTitle" data-i18n="modal_student_title">Start your experience in Spain</h2>
+          <p data-i18n="modal_student_intro">Create your account and we will match you with the best host venues.</p>
+        </div>
+        <form class="modal-form" id="studentModalForm" novalidate>
+          <div class="signup-field">
+            <label for="modalStudentName" data-i18n="signup_label_name">Full Name</label>
+            <input id="modalStudentName" name="nombre" type="text" autocomplete="name" required />
+          </div>
+          <div class="signup-field">
+            <label for="modalStudentEmail" data-i18n="signup_label_email">Email Address</label>
+            <input id="modalStudentEmail" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="signup-field">
+            <label for="modalStudentPass" data-i18n="signup_label_pass">Password</label>
+            <input id="modalStudentPass" name="password" type="password" autocomplete="new-password" minlength="8" required />
+          </div>
+          <div class="signup-field">
+            <label for="modalStudentCountry" data-i18n="signup_label_country">Country of Origin</label>
+            <input id="modalStudentCountry" name="pais_origen" type="text" autocomplete="country-name" required />
+          </div>
+          <div class="signup-field">
+            <label for="modalStudentCv" data-i18n="signup_label_cv">CV (PDF, optional for now)</label>
+            <input id="modalStudentCv" name="cv" type="file" accept="application/pdf" />
+          </div>
+          <div class="signup-field">
+            <label for="modalStudentPhoto" data-i18n="signup_label_photo">Profile Picture (optional for now)</label>
+            <input id="modalStudentPhoto" name="foto" type="file" accept="image/*" />
+          </div>
+          <button class="button button-primary" type="submit" id="studentModalSubmit" data-i18n="signup_btn">Create my account <span>↗</span></button>
+          <p class="signup-message" id="studentModalMsg" role="status" aria-live="polite"></p>
+          <small data-i18n="signup_note">Upon signing up we will send you a confirmation email. Only confirmed profiles will be activated.</small>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal Formulario Empresa -->
+    <div class="modal-backdrop" id="companyModal" role="dialog" aria-modal="true" aria-labelledby="modalCompanyTitle" hidden>
+      <div class="modal-card">
+        <button class="modal-close" type="button" data-close-modal aria-label="Close">✕</button>
+        <div class="modal-header">
+          <span class="role-badge" data-i18n="role_company_badge">For Host Venues</span>
+          <h2 id="modalCompanyTitle" data-i18n="modal_company_title">Host European Talent in your Company</h2>
+          <p data-i18n="modal_company_intro">Tell us what profiles you are looking for and we will connect you with qualified candidates.</p>
+        </div>
+        <form class="modal-form" id="companyModalForm" novalidate>
+          <div class="signup-field">
+            <label for="companyName" data-i18n="company_label_name">Contact Name</label>
+            <input id="companyName" name="contacto_nombre" type="text" autocomplete="name" required />
+          </div>
+          <div class="signup-field">
+            <label for="companyOrg" data-i18n="company_label_org">Company / Venue Name</label>
+            <input id="companyOrg" name="empresa_nombre" type="text" autocomplete="organization" required />
+          </div>
+          <div class="signup-field">
+            <label for="companyEmail" data-i18n="signup_label_email">Work Email</label>
+            <input id="companyEmail" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="signup-field">
+            <label for="companyPhone" data-i18n="company_label_phone">Phone Number / WhatsApp</label>
+            <input id="companyPhone" name="telefono" type="tel" autocomplete="tel" required />
+          </div>
+          <div class="signup-field">
+            <label for="companyCity" data-i18n="company_label_city">City & Sector</label>
+            <input id="companyCity" name="ciudad_sector" type="text" placeholder="e.g. Barcelona · Hotel Front Desk" required />
+          </div>
+          <div class="signup-field signup-field-full">
+            <label for="companyNeeds" data-i18n="company_label_needs">What positions or profiles do you need?</label>
+            <textarea id="companyNeeds" name="necesidades" rows="3" placeholder="Tell us about the roles, number of interns, dates, etc."></textarea>
+          </div>
+          <button class="button button-primary" type="submit" id="companyModalSubmit" data-i18n="company_btn_send">Submit request <span>↗</span></button>
+          <p class="signup-message" id="companyModalMsg" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
 
     <script src="https://unpkg.com/lenis@1.3.26/dist/lenis.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
