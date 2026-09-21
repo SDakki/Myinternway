@@ -34,14 +34,17 @@ language plpgsql
 security definer set search_path = public
 as $$
 begin
-  insert into public.profiles (id, nombre, pais_origen, confirmado)
+  insert into public.profiles (id, nombre, pais_origen, estado_solicitud, confirmado)
   values (
     new.id,
-    coalesce(new.raw_user_meta_data->>'nombre', ''),
+    coalesce(nullif(trim(new.raw_user_meta_data->>'nombre'), ''), 'Candidato'),
     new.raw_user_meta_data->>'pais_origen',
+    'pendiente',
     new.email_confirmed_at is not null
   )
-  on conflict (id) do nothing;
+  on conflict (id) do update set
+    nombre = coalesce(nullif(trim(excluded.nombre), ''), public.profiles.nombre),
+    pais_origen = coalesce(excluded.pais_origen, public.profiles.pais_origen);
   return new;
 end;
 $$;
@@ -73,3 +76,31 @@ create trigger on_auth_user_confirmed
 -- Vista para ti: en Supabase Studio ejecuta
 --   select * from public.profiles where confirmado = true;
 -- para ver solo a las personas ya confirmadas y elegirlas para pasantías.
+
+-- ==========================================================
+-- TABLA PARA EMPRESAS (Solicitudes / Leads de empresas aliadas)
+-- ==========================================================
+create table if not exists public.leads_empresas (
+  id uuid primary key default gen_random_uuid(),
+  contacto_nombre text not null,
+  empresa_nombre text not null,
+  email text not null,
+  telefono text,
+  ciudad_sector text,
+  necesidades text,
+  estado text not null default 'nuevo'
+    check (estado in ('nuevo', 'contactado', 'en_negociacion', 'cerrado')),
+  created_at timestamptz not null default now()
+);
+
+alter table public.leads_empresas enable row level security;
+
+-- Permitir que cualquier visitante de la web pueda enviar el formulario de empresa
+drop policy if exists "leads_empresas_insert_anon" on public.leads_empresas;
+create policy "leads_empresas_insert_anon" on public.leads_empresas
+  for insert with check (true);
+
+-- Solo usuarios autenticados administradores o desde el dashboard de Supabase pueden ver las empresas
+drop policy if exists "leads_empresas_select_admin" on public.leads_empresas;
+create policy "leads_empresas_select_admin" on public.leads_empresas
+  for select using (auth.role() = 'authenticated');
