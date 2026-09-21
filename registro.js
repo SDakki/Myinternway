@@ -19,10 +19,14 @@ async function uploadFile(userId, file, kind) {
   return path;
 }
 
+function t(key, defaultVal) {
+  return window.myinternwayI18n ? window.myinternwayI18n.t(key) : defaultVal;
+}
+
 signupForm?.addEventListener('submit', async (event) => {
   event.preventDefault();
   signupSubmit.disabled = true;
-  setSignupMessage('Creando tu cuenta…', false);
+  setSignupMessage(t('msg_creating', 'Creando tu cuenta…'), false);
 
   const formData = new FormData(signupForm);
   const nombre = formData.get('nombre').trim();
@@ -65,10 +69,10 @@ signupForm?.addEventListener('submit', async (event) => {
       if (profileError) throw profileError;
     }
 
-    setSignupMessage('¡Listo! Revisa tu correo para confirmar la cuenta.', false);
+    setSignupMessage(t('msg_success', '¡Listo! Revisa tu correo para confirmar la cuenta.'), false);
     signupForm.reset();
   } catch (error) {
-    setSignupMessage(error.message || 'Algo salió mal, inténtalo de nuevo.', true);
+    setSignupMessage(error.message || t('msg_error_default', 'Algo salió mal, inténtalo de nuevo.'), true);
   } finally {
     signupSubmit.disabled = false;
   }

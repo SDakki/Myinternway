@@ -60,14 +60,16 @@ function closeMenu() {
   navMenu.classList.remove('active');
   hamburger.classList.remove('active');
   hamburger.setAttribute('aria-expanded', 'false');
-  hamburger.setAttribute('aria-label', 'Abrir menú');
+  hamburger.setAttribute('aria-label', window.myinternwayI18n ? window.myinternwayI18n.t('nav_aria_open') : 'Open menu');
 }
 
 hamburger.addEventListener('click', () => {
   const isOpen = navMenu.classList.toggle('active');
   hamburger.classList.toggle('active', isOpen);
   hamburger.setAttribute('aria-expanded', String(isOpen));
-  hamburger.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
+  const openLabel = window.myinternwayI18n ? window.myinternwayI18n.t('nav_aria_open') : 'Open menu';
+  const closeLabel = window.myinternwayI18n ? window.myinternwayI18n.t('nav_aria_close') : 'Close menu';
+  hamburger.setAttribute('aria-label', isOpen ? closeLabel : openLabel);
 });
 
 navMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
