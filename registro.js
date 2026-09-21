@@ -35,11 +35,11 @@ function handleSignupSubmission(form, submitBtn, msgEl) {
 
     const formData = new FormData(form);
     const nombre = (formData.get('nombre') || '').toString().trim();
+    const apellidos = (formData.get('apellidos') || '').toString().trim();
+    const nombreCompleto = apellidos ? `${nombre} ${apellidos}`.trim() : nombre;
     const email = (formData.get('email') || '').toString().trim();
     const password = (formData.get('password') || '').toString();
     const paisOrigen = (formData.get('pais_origen') || '').toString().trim();
-    const cvFile = formData.get('cv');
-    const fotoFile = formData.get('foto');
 
     try {
       const { data, error } = await supabaseClient.auth.signUp({
@@ -47,7 +47,7 @@ function handleSignupSubmission(form, submitBtn, msgEl) {
         password,
         options: {
           emailRedirectTo: window.location.origin,
-          data: { nombre, pais_origen: paisOrigen },
+          data: { nombre: nombreCompleto, primer_nombre: nombre, apellidos, pais_origen: paisOrigen },
         },
       });
       if (error) throw error;
@@ -55,17 +55,10 @@ function handleSignupSubmission(form, submitBtn, msgEl) {
       const userId = data.user?.id;
 
       if (data.session && userId) {
-        let cvPath = null;
-        let fotoPath = null;
-        if (cvFile && cvFile.size > 0) cvPath = await uploadFile(userId, cvFile, 'cv');
-        if (fotoFile && fotoFile.size > 0) fotoPath = await uploadFile(userId, fotoFile, 'foto');
-
         const { error: profileError } = await supabaseClient.from('profiles').upsert({
           id: userId,
-          nombre,
+          nombre: nombreCompleto,
           pais_origen: paisOrigen,
-          cv_url: cvPath,
-          foto_url: fotoPath,
           estado_solicitud: 'pendiente',
         });
         if (profileError) throw profileError;
@@ -87,9 +80,7 @@ function handleSignupSubmission(form, submitBtn, msgEl) {
   });
 }
 
-// Iniciar formulario principal y modal de estudiante
-handleSignupSubmission(signupForm, signupSubmit, signupMessage);
-
+// Iniciar modal de estudiante
 const studentModalForm = document.getElementById('studentModalForm');
 const studentModalSubmit = document.getElementById('studentModalSubmit');
 const studentModalMsg = document.getElementById('studentModalMsg');

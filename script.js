@@ -26,26 +26,15 @@ function setupMotion() {
     gsap.registerPlugin(ScrollTrigger);
     gsap.from('.hero-header > *, .hero-footer > *', { opacity: 0, y: 24, duration: .8, stagger: .08, ease: 'power3.out', delay: .15 });
     gsap.from('.hero-collage', { opacity: 0, scale: .94, rotate: 6, duration: 1.1, ease: 'power3.out', delay: .3 });
-    gsap.utils.toArray('.section-heading, .about-grid, .destination-grid, .process-section, .access-section').forEach((section) => {
+    gsap.utils.toArray('.section-heading, .about-grid, .roles-section, .process-section').forEach((section) => {
       gsap.from(section, {
         opacity: 0,
-        y: 42,
-        duration: .85,
-        ease: 'power3.out',
+        y: 35,
+        duration: .7,
+        ease: 'power2.out',
         immediateRender: false,
-        scrollTrigger: { trigger: section, start: 'top 82%', once: true },
+        scrollTrigger: { trigger: section, start: 'top 85%', once: true },
       });
-    });
-    gsap.to('.hero:after', { y: 80, rotation: 18, ease: 'none', scrollTrigger: { trigger: '.hero', scrub: true } });
-  }
-
-  if (window.VanillaTilt) {
-    VanillaTilt.init(document.querySelectorAll('.role-card, .floating-note'), {
-      max: 4,
-      speed: 400,
-      perspective: 900,
-      glare: true,
-      'max-glare': .08,
     });
   }
 }
@@ -75,12 +64,19 @@ hamburger.addEventListener('click', () => {
 navMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
 
 let lastScrollY = window.scrollY;
+let scrollTicking = false;
 
 window.addEventListener('scroll', () => {
-  const currentScrollY = window.scrollY;
-  navbar.classList.toggle('nav-hidden', currentScrollY > lastScrollY && currentScrollY > 100);
-  lastScrollY = currentScrollY;
-});
+  if (!scrollTicking) {
+    window.requestAnimationFrame(() => {
+      const currentScrollY = window.scrollY;
+      navbar.classList.toggle('nav-hidden', currentScrollY > lastScrollY && currentScrollY > 100);
+      lastScrollY = currentScrollY;
+      scrollTicking = false;
+    });
+    scrollTicking = true;
+  }
+}, { passive: true });
 
 if ('IntersectionObserver' in window) {
   const revealObserver = new IntersectionObserver((entries, observer) => {

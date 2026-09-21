@@ -41,8 +41,8 @@
           <button class="lang-btn is-active" data-lang-btn="en" type="button" aria-pressed="true">EN</button>
           <button class="lang-btn" data-lang-btn="es" type="button" aria-pressed="false">ES</button>
         </div>
-        <a class="nav-login" href="#registro" data-i18n="nav_member">Already a member</a>
-        <a class="nav-cta" href="#registro" data-i18n="nav_cta">Get started <span>↗</span></a>
+        <a class="nav-login" href="#roles" data-i18n="nav_member">Sign up</a>
+        <a class="nav-cta" href="#roles" data-i18n="nav_cta">Get started <span>↗</span></a>
       </nav>
       <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false">
         <span class="bar"></span><span class="bar"></span><span class="bar"></span>
@@ -199,37 +199,6 @@
         </div>
       </section>
 
-      <!-- Roles Selection Section (Student / Company) -->
-      <section class="roles-section reveal-on-scroll" id="roles">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow" data-i18n="roles_eyebrow">Choose your path</p>
-            <h2 data-i18n="roles_title">Are you a student<br />or a <em>company?</em></h2>
-          </div>
-          <p class="section-intro" data-i18n="roles_intro">Pick your profile to unlock tailored opportunities or hire European talent with ease.</p>
-        </div>
-        <div class="role-grid">
-          <button class="role-card role-card-student" id="openStudentModal" type="button" aria-haspopup="dialog">
-            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1000&q=85" alt="Student looking for internship in Spain" />
-            <div class="role-overlay">
-              <span class="role-badge" data-i18n="role_student_badge">For Candidates</span>
-              <h3 data-i18n="role_student_title">I am a Student / Graduate</h3>
-              <p data-i18n="role_student_desc">Find internships, get housing support and start your experience in Spain.</p>
-              <span class="role-btn-label"><span data-i18n="role_student_cta">Sign up as Student</span> <span>↗</span></span>
-            </div>
-          </button>
-          <button class="role-card role-card-company" id="openCompanyModal" type="button" aria-haspopup="dialog">
-            <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1000&q=85" alt="Companies hiring interns in Spain" />
-            <div class="role-overlay">
-              <span class="role-badge" data-i18n="role_company_badge">For Host Venues</span>
-              <h3 data-i18n="role_company_title">I am a Company</h3>
-              <p data-i18n="role_company_desc">Receive motivated European talent for your hotel, restaurant or business.</p>
-              <span class="role-btn-label"><span data-i18n="role_company_cta">Register as Company</span> <span>↗</span></span>
-            </div>
-          </button>
-        </div>
-      </section>
-
       <section class="process-section reveal-on-scroll" id="proceso">
         <div class="process-photo">
           <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=85" alt="Team collaborating together" />
@@ -264,41 +233,35 @@
         </div>
       </section>
 
-      <section class="access-section" id="registro">
-        <div>
-          <p class="eyebrow" data-i18n="signup_eyebrow">Ready to explore?</p>
-          <h2 data-i18n="signup_title">Your next<br /><em>yes starts here.</em></h2>
-          <p data-i18n="signup_intro">Create your account, tell us who you are, and we will get in touch as soon as you confirm your email.</p>
+      <!-- Roles Selection Section (Student / Company) -->
+      <section class="roles-section reveal-on-scroll" id="roles">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" data-i18n="roles_eyebrow">Choose your path</p>
+            <h2 data-i18n="roles_title">Are you a student<br />or a <em>company?</em></h2>
+          </div>
+          <p class="section-intro" data-i18n="roles_intro">Pick your profile to unlock tailored opportunities or hire European talent with ease.</p>
         </div>
-        <form class="signup-form" id="signupForm" novalidate>
-          <div class="signup-field">
-            <label for="signupNombre" data-i18n="signup_label_name">Full Name</label>
-            <input id="signupNombre" name="nombre" type="text" autocomplete="name" required />
-          </div>
-          <div class="signup-field">
-            <label for="signupEmail" data-i18n="signup_label_email">Email Address</label>
-            <input id="signupEmail" name="email" type="email" autocomplete="email" required />
-          </div>
-          <div class="signup-field">
-            <label for="signupPassword" data-i18n="signup_label_pass">Password</label>
-            <input id="signupPassword" name="password" type="password" autocomplete="new-password" minlength="8" required />
-          </div>
-          <div class="signup-field">
-            <label for="signupPais" data-i18n="signup_label_country">Country of Origin</label>
-            <input id="signupPais" name="pais_origen" type="text" autocomplete="country-name" required />
-          </div>
-          <div class="signup-field">
-            <label for="signupCv" data-i18n="signup_label_cv">CV (PDF, optional for now)</label>
-            <input id="signupCv" name="cv" type="file" accept="application/pdf" />
-          </div>
-          <div class="signup-field">
-            <label for="signupFoto" data-i18n="signup_label_photo">Profile Picture (optional for now)</label>
-            <input id="signupFoto" name="foto" type="file" accept="image/*" />
-          </div>
-          <button class="button button-primary" type="submit" id="signupSubmit" data-i18n="signup_btn">Create my account <span>↗</span></button>
-          <p class="signup-message" id="signupMessage" role="status" aria-live="polite"></p>
-          <small data-i18n="signup_note">Upon signing up we will send you a confirmation email. Only confirmed profiles will be activated.</small>
-        </form>
+        <div class="role-grid">
+          <button class="role-card role-card-student" id="openStudentModal" type="button" aria-haspopup="dialog">
+            <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1000&q=85" alt="Student looking for internship in Spain" />
+            <div class="role-overlay">
+              <span class="role-badge" data-i18n="role_student_badge">For Candidates</span>
+              <h3 data-i18n="role_student_title">I am a Student / Graduate</h3>
+              <p data-i18n="role_student_desc">Find internships, get housing support and start your experience in Spain.</p>
+              <span class="role-btn-label"><span data-i18n="role_student_cta">Sign up as Student</span> <span>↗</span></span>
+            </div>
+          </button>
+          <button class="role-card role-card-company" id="openCompanyModal" type="button" aria-haspopup="dialog">
+            <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1000&q=85" alt="Companies hiring interns in Spain" />
+            <div class="role-overlay">
+              <span class="role-badge" data-i18n="role_company_badge">For Host Venues</span>
+              <h3 data-i18n="role_company_title">I am a Company</h3>
+              <p data-i18n="role_company_desc">Receive motivated European talent for your hotel, restaurant or business.</p>
+              <span class="role-btn-label"><span data-i18n="role_company_cta">Register as Company</span> <span>↗</span></span>
+            </div>
+          </button>
+        </div>
       </section>
     </main>
 
@@ -310,7 +273,7 @@
           <a href="#nosotros" data-i18n="nav_about">About us</a>
           <a href="#historias" data-i18n="nav_stories">Stories</a>
           <a href="#proceso" data-i18n="nav_how">How it works</a>
-          <a href="#registro" data-i18n="footer_contact">Contact</a>
+          <a href="#roles" data-i18n="footer_contact">Contact</a>
         </div>
       </div>
       <div class="footer-bottom">
@@ -330,28 +293,24 @@
         </div>
         <form class="modal-form" id="studentModalForm" novalidate>
           <div class="signup-field">
-            <label for="modalStudentName" data-i18n="signup_label_name">Full Name</label>
-            <input id="modalStudentName" name="nombre" type="text" autocomplete="name" required />
+            <label for="modalStudentName" data-i18n="signup_label_name">First Name</label>
+            <input id="modalStudentName" name="nombre" type="text" autocomplete="given-name" placeholder="John" required />
+          </div>
+          <div class="signup-field">
+            <label for="modalStudentLastname" data-i18n="signup_label_lastname">Last Name</label>
+            <input id="modalStudentLastname" name="apellidos" type="text" autocomplete="family-name" placeholder="Doe" required />
           </div>
           <div class="signup-field">
             <label for="modalStudentEmail" data-i18n="signup_label_email">Email Address</label>
-            <input id="modalStudentEmail" name="email" type="email" autocomplete="email" required />
-          </div>
-          <div class="signup-field">
-            <label for="modalStudentPass" data-i18n="signup_label_pass">Password</label>
-            <input id="modalStudentPass" name="password" type="password" autocomplete="new-password" minlength="8" required />
+            <input id="modalStudentEmail" name="email" type="email" autocomplete="email" placeholder="john@example.com" required />
           </div>
           <div class="signup-field">
             <label for="modalStudentCountry" data-i18n="signup_label_country">Country of Origin</label>
-            <input id="modalStudentCountry" name="pais_origen" type="text" autocomplete="country-name" required />
+            <input id="modalStudentCountry" name="pais_origen" type="text" autocomplete="country-name" placeholder="e.g. France, Germany, Italy" required />
           </div>
-          <div class="signup-field">
-            <label for="modalStudentCv" data-i18n="signup_label_cv">CV (PDF, optional for now)</label>
-            <input id="modalStudentCv" name="cv" type="file" accept="application/pdf" />
-          </div>
-          <div class="signup-field">
-            <label for="modalStudentPhoto" data-i18n="signup_label_photo">Profile Picture (optional for now)</label>
-            <input id="modalStudentPhoto" name="foto" type="file" accept="image/*" />
+          <div class="signup-field signup-field-full">
+            <label for="modalStudentPass" data-i18n="signup_label_pass">Password</label>
+            <input id="modalStudentPass" name="password" type="password" autocomplete="new-password" minlength="8" placeholder="At least 8 characters" required />
           </div>
           <button class="button button-primary" type="submit" id="studentModalSubmit" data-i18n="signup_btn">Create my account <span>↗</span></button>
           <p class="signup-message" id="studentModalMsg" role="status" aria-live="polite"></p>
