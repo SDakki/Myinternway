@@ -7,8 +7,8 @@ create table if not exists public.profiles (
   pais_origen text,
   cv_url text,
   foto_url text,
-  estado_solicitud text not null default 'pendiente'
-    check (estado_solicitud in ('pendiente', 'en_revision', 'aceptado', 'rechazado')),
+  estado_solicitud text not null default 'registrado'
+    check (estado_solicitud in ('registrado', 'pendiente', 'en_revision', 'aceptado', 'rechazado')),
   confirmado boolean not null default false,
   created_at timestamptz not null default now()
 );
@@ -39,7 +39,7 @@ begin
     new.id,
     coalesce(nullif(trim(new.raw_user_meta_data->>'nombre'), ''), 'Candidato'),
     new.raw_user_meta_data->>'pais_origen',
-    'pendiente',
+    'registrado',
     new.email_confirmed_at is not null
   )
   on conflict (id) do update set

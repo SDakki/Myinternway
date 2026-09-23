@@ -52,7 +52,8 @@ function closeMenu() {
   hamburger.setAttribute('aria-label', window.myinternwayI18n ? window.myinternwayI18n.t('nav_aria_open') : 'Open menu');
 }
 
-hamburger.addEventListener('click', () => {
+hamburger.addEventListener('click', (e) => {
+  e.stopPropagation();
   const isOpen = navMenu.classList.toggle('active');
   hamburger.classList.toggle('active', isOpen);
   hamburger.setAttribute('aria-expanded', String(isOpen));
@@ -61,7 +62,17 @@ hamburger.addEventListener('click', () => {
   hamburger.setAttribute('aria-label', isOpen ? closeLabel : openLabel);
 });
 
-navMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+navMenu.querySelectorAll('a, button').forEach((el) => {
+  el.addEventListener('click', () => {
+    if (el !== hamburger) closeMenu();
+  });
+});
+
+document.addEventListener('click', (e) => {
+  if (navMenu.classList.contains('active') && !navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+    closeMenu();
+  }
+});
 
 let lastScrollY = window.scrollY;
 let scrollTicking = false;

@@ -25,28 +25,30 @@
     <link rel="icon" type="image/svg+xml" href="favicon.svg?v=20260914-logo" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css?v=20260921-i18n" />
   </head>
   <body>
     <header class="navbar" id="navbar">
       <a class="logo" href="#inicio" aria-label="MyInternWay, home"><span>MyInternWay</span><i></i></a>
-      <nav class="nav-menu" id="navMenu" aria-label="Main navigation">
-        <ul class="nav-list">
-          <li><a class="nav-link" href="#nosotros" data-i18n="nav_about">About us</a></li>
-          <li><a class="nav-link" href="#historias" data-i18n="nav_stories">Stories</a></li>
-          <li><a class="nav-link" href="#proceso" data-i18n="nav_how">How it works</a></li>
-        </ul>
+      <div class="nav-right">
+        <button class="nav-login" id="navLoginBtn" type="button" data-i18n="nav_login">Log in</button>
         <div class="lang-switcher" aria-label="Language selector">
           <button class="lang-btn is-active" data-lang-btn="en" type="button" aria-pressed="true">EN</button>
           <button class="lang-btn" data-lang-btn="es" type="button" aria-pressed="false">ES</button>
         </div>
-        <button class="nav-login" id="navLoginBtn" type="button" data-i18n="nav_login">Log in</button>
-        <a class="nav-cta" href="#roles" data-i18n="nav_cta">Get started <span>↗</span></a>
-      </nav>
-      <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false">
-        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
-      </button>
+        <nav class="nav-menu" id="navMenu" aria-label="Main navigation">
+          <ul class="nav-list">
+            <li><a class="nav-link" href="#nosotros" data-i18n="nav_about">About us</a></li>
+            <li><a class="nav-link" href="#historias" data-i18n="nav_stories">Stories</a></li>
+            <li><a class="nav-link" href="#proceso" data-i18n="nav_how">How it works</a></li>
+          </ul>
+          <a class="nav-cta" href="#roles" data-i18n="nav_cta">Get started <span>↗</span></a>
+        </nav>
+        <button class="hamburger" id="hamburger" type="button" aria-label="Open menu" aria-expanded="false">
+          <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </button>
+      </div>
     </header>
 
     <main>
@@ -136,7 +138,7 @@
             <div class="story-track" id="storyTrack">
               <article class="story-slide">
                 <div class="person-placeholder person-one">
-                  <img src="Media/Abdou.jpg" alt="Abdou Rahma Waggeh" />
+                  <img src="Media/Estu1.jpg" alt="Abdou Rahma Waggeh" />
                   <span data-i18n="story_1_from">From France · Barcelona</span>
                   <b>01</b>
                 </div>

@@ -6,8 +6,10 @@ const translations = {
     nav_about: "About us",
     nav_stories: "Stories",
     nav_how: "How it works",
+    nav_login: "Log in",
     nav_member: "Sign up",
     nav_cta: "Get started <span>↗</span>",
+    nav_logout: "Log out",
     nav_aria_open: "Open menu",
     nav_aria_close: "Close menu",
     
@@ -99,7 +101,29 @@ const translations = {
 
     modal_student_title: "Start your experience in Spain",
     modal_student_intro: "Create your account and we will match you with the best host venues.",
-    modal_company_title: "Host European Talent in your Company",
+    modal_login_title: "Welcome back",
+    modal_login_intro: "Log in to access your MyInternWay candidate account.",
+    modal_login_btn: "Log in <span>↗</span>",
+    modal_login_no_account: "Don't have an account?",
+    modal_login_signup_link: "Sign up here",
+    modal_signup_has_account: "Already have an account?",
+    modal_signup_login_link: "Log in here",
+    modal_dashboard_title: "Candidate Dashboard",
+    modal_dashboard_intro: "Here is the status of your internship profile.",
+    dash_label_name: "Name:",
+    dash_label_email: "Email:",
+    dash_label_country: "Country:",
+    dash_label_status: "Application Status:",
+    dash_status_registered: "Registered 📝",
+    dash_status_pending: "Pending ⏳",
+    dash_status_review: "In review ⏳",
+    dash_status_accepted: "Accepted ✓",
+    dash_status_rejected: "Rejected ✕",
+    dash_status_confirmed: "Email confirmed ✓",
+    dash_status_waiting: "Awaiting email confirmation ✉",
+    dash_btn_logout: "Log out",
+
+    company_label_name: "Contact Name",
     modal_company_intro: "Tell us what profiles you need and we will connect you with candidates.",
     company_label_name: "Contact Name",
     company_label_org: "Company / Venue Name",
@@ -114,8 +138,15 @@ const translations = {
     footer_copy: "Made to take the leap",
 
     msg_creating: "Creating your account…",
+    msg_logging_in: "Logging in…",
     msg_success: "All set! Please check your email to confirm your account.",
-    msg_error_default: "Something went wrong, please try again."
+    msg_success_logged: "Account created successfully! You can now access your dashboard.",
+    msg_error_default: "Something went wrong, please try again.",
+    msg_error_credentials: "Invalid email or password.",
+    msg_error_not_confirmed: "Please confirm your email before logging in.",
+    msg_error_user_already_registered: "An account with this email already exists.",
+    msg_error_weak_password: "Password should be at least 6 characters.",
+    msg_error_rate_limit: "Too many requests. Please wait a moment and try again."
   },
   es: {
     meta_description: "MyInternWay conecta talento europeo con experiencias profesionales en España.",
@@ -123,8 +154,10 @@ const translations = {
     nav_about: "Quiénes somos",
     nav_stories: "Historias",
     nav_how: "Cómo funciona",
+    nav_login: "Iniciar sesión",
     nav_member: "Registrarse",
     nav_cta: "Quiero empezar <span>↗</span>",
+    nav_logout: "Cerrar sesión",
     nav_aria_open: "Abrir menú",
     nav_aria_close: "Cerrar menú",
     
@@ -216,6 +249,28 @@ const translations = {
 
     modal_student_title: "Empieza tu experiencia en España",
     modal_student_intro: "Crea tu cuenta y te conectaremos con las mejores empresas.",
+    modal_login_title: "Bienvenido de nuevo",
+    modal_login_intro: "Inicia sesión para acceder a tu panel de candidato.",
+    modal_login_btn: "Iniciar sesión <span>↗</span>",
+    modal_login_no_account: "¿No tienes cuenta?",
+    modal_login_signup_link: "Regístrate aquí",
+    modal_signup_has_account: "¿Ya tienes cuenta?",
+    modal_signup_login_link: "Inicia sesión aquí",
+    modal_dashboard_title: "Panel del Candidato",
+    modal_dashboard_intro: "Aquí puedes ver el estado actual de tu solicitud.",
+    dash_label_name: "Nombre:",
+    dash_label_email: "Correo:",
+    dash_label_country: "País:",
+    dash_label_status: "Estado de solicitud:",
+    dash_status_registered: "Registrado 📝",
+    dash_status_pending: "Pendiente ⏳",
+    dash_status_review: "En revisión ⏳",
+    dash_status_accepted: "Aceptado ✓",
+    dash_status_rejected: "Rechazado ✕",
+    dash_status_confirmed: "Correo confirmado ✓",
+    dash_status_waiting: "Esperando confirmación de correo ✉",
+    dash_btn_logout: "Cerrar sesión",
+
     modal_company_title: "Incorpora talento europeo a tu empresa",
     modal_company_intro: "Cuéntanos qué perfiles necesitas y te presentaremos candidatos cualificados.",
     company_label_name: "Nombre de contacto",
@@ -231,8 +286,15 @@ const translations = {
     footer_copy: "Hecho para dar el salto",
 
     msg_creating: "Creando tu cuenta…",
+    msg_logging_in: "Iniciando sesión…",
     msg_success: "¡Listo! Revisa tu correo para confirmar la cuenta.",
-    msg_error_default: "Algo salió mal, inténtalo de nuevo."
+    msg_success_logged: "¡Cuenta creada con éxito! Ya puedes acceder a tu panel.",
+    msg_error_default: "Algo salió mal, inténtalo de nuevo.",
+    msg_error_credentials: "Correo o contraseña incorrectos.",
+    msg_error_not_confirmed: "Debes confirmar tu correo antes de iniciar sesión.",
+    msg_error_user_already_registered: "Ya existe una cuenta registrada con este correo.",
+    msg_error_weak_password: "La contraseña debe tener al menos 6 caracteres.",
+    msg_error_rate_limit: "Demasiados intentos. Por favor espera un momento y vuelve a intentarlo."
   }
 };
 
@@ -253,6 +315,11 @@ function setLanguage(lang) {
       el.innerHTML = dict[key];
     }
   });
+
+  // Re-comprobar sesión si el usuario está logueado para no sobreescribir su nombre
+  if (window.checkUserSession) {
+    window.checkUserSession();
+  }
 
   // Update elements with data-i18n-alt
   document.querySelectorAll('[data-i18n-alt]').forEach((el) => {

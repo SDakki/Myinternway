@@ -15,6 +15,28 @@ function t(key, defaultVal) {
   return window.myinternwayI18n ? window.myinternwayI18n.t(key) : defaultVal;
 }
 
+function getFriendlyErrorMessage(err) {
+  if (!err) return t('msg_error_default', 'Algo salió mal, inténtalo de nuevo.');
+  const msg = (err.message || err.error_description || String(err)).toLowerCase();
+
+  if (msg.includes('invalid login credentials') || msg.includes('invalid_credentials')) {
+    return t('msg_error_credentials', 'Correo o contraseña incorrectos.');
+  }
+  if (msg.includes('email not confirmed') || msg.includes('email_not_confirmed')) {
+    return t('msg_error_not_confirmed', 'Debes confirmar tu correo antes de iniciar sesión.');
+  }
+  if (msg.includes('user already registered') || msg.includes('already exists') || msg.includes('identity already exists')) {
+    return t('msg_error_user_already_registered', 'Ya existe una cuenta registrada con este correo.');
+  }
+  if (msg.includes('password should be') || msg.includes('weak_password') || msg.includes('password is too short')) {
+    return t('msg_error_weak_password', 'La contraseña debe tener al menos 6 caracteres.');
+  }
+  if (msg.includes('rate limit') || msg.includes('too many requests') || msg.includes('over_request_rate_limit')) {
+    return t('msg_error_rate_limit', 'Demasiados intentos. Por favor espera un momento y vuelve a intentarlo.');
+  }
+  return err.message || t('msg_error_default', 'Algo salió mal, inténtalo de nuevo.');
+}
+
 function renderStatusBadge(statusEl, estado) {
   if (!statusEl) return;
   if (estado === 'aceptado') {
@@ -26,9 +48,12 @@ function renderStatusBadge(statusEl, estado) {
   } else if (estado === 'rechazado') {
     statusEl.textContent = t('dash_status_rejected', 'Rechazado ✕');
     statusEl.className = 'status-pill status-rejected';
-  } else {
+  } else if (estado === 'pendiente') {
     statusEl.textContent = t('dash_status_pending', 'Pendiente ⏳');
     statusEl.className = 'status-pill status-pending';
+  } else {
+    statusEl.textContent = t('dash_status_registered', 'Registrado 📝');
+    statusEl.className = 'status-pill status-registered';
   }
 }
 
@@ -74,7 +99,7 @@ function handleSignupSubmission(form, submitBtn, msgEl) {
           id: userId,
           nombre: nombreCompleto,
           pais_origen: paisOrigen,
-          estado_solicitud: 'pendiente'
+          estado_solicitud: 'registrado'
         });
         if (profileError) console.warn('Error guardando en profiles:', profileError);
       }
@@ -93,7 +118,7 @@ function handleSignupSubmission(form, submitBtn, msgEl) {
       }
     } catch (error) {
       if (msgEl) {
-        msgEl.textContent = error.message || t('msg_error_default', 'Algo salió mal, inténtalo de nuevo.');
+        msgEl.textContent = getFriendlyErrorMessage(error);
         msgEl.classList.add('is-error');
       }
     } finally {
@@ -117,7 +142,7 @@ loginModalForm?.addEventListener('submit', async (event) => {
   event.preventDefault();
   if (loginModalSubmit) loginModalSubmit.disabled = true;
   if (loginModalMsg) {
-    loginModalMsg.textContent = t('msg_creating', 'Iniciando sesión…');
+    loginModalMsg.textContent = t('msg_logging_in', 'Iniciando sesión…');
     loginModalMsg.classList.remove('is-error');
   }
 
@@ -141,7 +166,7 @@ loginModalForm?.addEventListener('submit', async (event) => {
       const u = data.user;
       let cachedName = u.user_metadata?.nombre || u.user_metadata?.primer_nombre || '';
       let cachedCountry = u.user_metadata?.pais_origen || '';
-      let cachedStatus = 'pendiente';
+      let cachedStatus = 'registrado';
 
       // Consultar tabla profiles inmediatamente
       try {
@@ -189,13 +214,7 @@ loginModalForm?.addEventListener('submit', async (event) => {
     if (window.openModal) window.openModal(document.getElementById('dashboardModal'));
   } catch (error) {
     if (loginModalMsg) {
-      let errorMsg = error.message;
-      if (errorMsg === 'Invalid login credentials') {
-        errorMsg = t('msg_error_credentials', 'Correo o contraseña incorrectos.');
-      } else if (errorMsg === 'Email not confirmed') {
-        errorMsg = t('msg_error_not_confirmed', 'Debes confirmar tu correo antes de iniciar sesión.');
-      }
-      loginModalMsg.textContent = errorMsg || t('msg_error_default', 'Credenciales incorrectas');
+      loginModalMsg.textContent = getFriendlyErrorMessage(error);
       loginModalMsg.classList.add('is-error');
     }
   } finally {
@@ -245,7 +264,7 @@ async function checkUserSession(forcedSession = null) {
   let email = user.email || localStorage.getItem('myinternway_user_email') || '';
   let nombre = user.user_metadata?.nombre || user.user_metadata?.primer_nombre || localStorage.getItem('myinternway_user_name') || '';
   let pais = user.user_metadata?.pais_origen || localStorage.getItem('myinternway_user_country') || '';
-  let estado = localStorage.getItem('myinternway_user_status') || 'pendiente';
+  let estado = localStorage.getItem('myinternway_user_status') || 'registrado';
 
   // 2. Pintar inmediatamente
   let primerNombre = nombre ? nombre.split(' ')[0] : (email ? email.split('@')[0] : 'Mi cuenta');
